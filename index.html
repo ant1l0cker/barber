@@ -110,7 +110,50 @@ h1,h2,h3,.logo,.person .av{font-family:'Playfair Display',Georgia,serif}
 .card:hover{border-color:var(--red)}
 footer{background:#050505;border-top:1px solid var(--red)}
 .facts div{color:var(--red)}
+header{background:color-mix(in srgb,var(--card) 80%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.hero{padding:96px 0 90px}
+.eyebrow{display:inline-block;letter-spacing:4px;text-transform:uppercase;font-size:12px;font-weight:700;color:var(--red);border:1px solid var(--red);border-radius:30px;padding:6px 16px;margin-bottom:18px;position:relative}
+.hero h1{font-size:clamp(38px,7vw,76px)}
+.hero h1 span{background:linear-gradient(90deg,var(--red-l),var(--red),var(--red-d));-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn{position:relative;overflow:hidden}
+.btn:not(.ghost)::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.4) 50%,transparent 70%);transform:translateX(-120%);animation:sh 4.5s infinite;pointer-events:none}
+@keyframes sh{to{transform:translateX(120%)}}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.card,.person,.steps div{animation:up .7s both}
+.card:nth-child(4n+2){animation-delay:.08s}.card:nth-child(4n+3){animation-delay:.16s}.card:nth-child(4n){animation-delay:.24s}
+.person:nth-child(2){animation-delay:.1s}.person:nth-child(3){animation-delay:.2s}
+.card:hover{box-shadow:0 14px 40px rgba(212,175,55,.28)}
+.sec h2::after{content:"";display:block;width:52px;height:2px;background:var(--red);margin-top:8px}
+.marq{overflow:hidden;background:#050505;border-block:1px solid var(--red)}
+.marq div{display:flex;width:max-content;animation:mq 30s linear infinite;padding:14px 0;letter-spacing:4px;font-weight:700;text-transform:uppercase;font-size:13px;color:#f0d684}
+.marq span{padding:0 26px}.marq span::after{content:"✦";margin-left:52px;color:#d4af37}
+@keyframes mq{to{transform:translateX(-50%)}}
+.homeband{margin-top:44px;border-radius:24px;padding:38px;display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:radial-gradient(500px 220px at 90% 0,rgba(212,175,55,.28),transparent),linear-gradient(135deg,#1b1608,#070707);border:1px solid var(--red);color:#f3ead7}
+.homeband h2{font-size:32px;color:#f0d684}.homeband p{max-width:520px;opacity:.85;margin-top:8px}
+.homeband .btn{height:50px;padding:0 32px;font-size:16px}
+.ov{backdrop-filter:blur(6px)}
+.md{border:1px solid var(--line);border-top:3px solid var(--red)}
+.lb{display:block;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{border:1.5px solid var(--line);border-radius:12px;padding:12px 8px;font-weight:700;line-height:1.2}
+.seg button small{font-weight:600;color:var(--mut)}
+.seg button.on{border-color:var(--red);background:var(--soft);color:var(--red)}
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+.days button{flex:none;min-width:62px;border:1.5px solid var(--line);border-radius:12px;padding:8px 6px;display:grid;text-align:center}
+.days button span{font-size:11px;color:var(--mut);font-weight:600}.days button b{font-size:20px}
+.days button.on{background:var(--red);border-color:var(--red);color:#1a1408}.days button.on span{color:#1a1408}
+.sum{background:var(--soft);border-radius:12px;padding:12px 14px;text-align:center;line-height:1.6}.sum:empty{display:none}
+.loc{border:1px dashed var(--red);border-radius:12px;padding:12px 14px;margin-top:10px;display:grid;gap:8px}
+.yn{display:flex;gap:8px;flex-wrap:wrap}.yn .btn{height:40px;padding:0 16px}
+.lnk{color:var(--red);font-weight:700;text-decoration:underline;font-size:13px}
+.fl{display:grid;gap:5px;font-weight:700;font-size:13px;margin-top:10px}
+.two2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.two2 label{display:grid;gap:5px;font-weight:700;font-size:13px}
+.spin{width:16px;height:16px;border:2px solid var(--line);border-top-color:var(--red);border-radius:50%;animation:spn .8s linear infinite;display:inline-block;vertical-align:middle;margin-right:8px}
+@keyframes spn{to{transform:rotate(360deg)}}
+@media(max-width:480px){.two2{grid-template-columns:1fr}.hero{padding:64px 0 60px}.homeband{padding:26px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
+
 </head>
 <body>
 <header><div class="wrap"><div class="hrow">
@@ -126,13 +169,14 @@ footer{background:#050505;border-top:1px solid var(--red)}
 <section class="hero" id="top">
  <svg class="pole" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="34" cy="72" r="14"/><circle cx="66" cy="72" r="14"/><path d="M42 60L72 10M58 60L28 10"/></svg>
  <div class="wrap">
-  <h1>Fresh cuts. <span>Sharp lines.</span><br>Booked in seconds.</h1>
+  <div class="eyebrow">Premium grooming studio</div><h1>Fresh cuts. <span>Sharp lines.</span><br>Booked in seconds.</h1>
   <p>Browse our hairstyles, pick your barber and choose a time that suits you. No calls, no waiting in line.</p>
-  <div class="cta"><button class="btn" data-book>Book appointment</button><a class="btn ghost" href="#styles">See hairstyles</a></div>
+  <div class="cta"><button class="btn" data-book>Book appointment</button><button class="btn ghost" data-book data-home>Book home service</button></div>
   <div class="facts"><div>Mon–Sat<span>8:00 AM – 8:00 PM</span></div><div>3 barbers<span>Walk-ins welcome</span></div><div>From Ksh 200<span>Kids cuts</span></div></div>
  </div>
 </section>
 
+<div class="marq" aria-hidden="true"><div><span>Fades</span><span>Tapers</span><span>Locs</span><span>Twists</span><span>Beards</span><span>Kids cuts</span><span>Home service</span><span>Line-ups</span><span>Fades</span><span>Tapers</span><span>Locs</span><span>Twists</span><span>Beards</span><span>Kids cuts</span><span>Home service</span><span>Line-ups</span></div></div>
 <main class="wrap">
  <div class="sec" id="styles"><h2>Hairstyles</h2><span id="sc"></span></div>
  <div class="fbar" id="fbar"></div>
@@ -140,6 +184,8 @@ footer{background:#050505;border-top:1px solid var(--red)}
 
  <div class="sec" id="team"><h2>Meet the barbers</h2></div>
  <div class="team" id="teamBox"></div>
+
+ <div class="homeband"><div><h2>Can’t make it in? We’ll come to you.</h2><p>Book a home service and your barber arrives at your door. We detect your location, you just confirm it’s you.</p></div><button class="btn" data-book data-home>Book home service</button></div>
 
  <div class="sec" id="how"><h2>How booking works</h2></div>
  <div class="steps">
@@ -232,74 +278,115 @@ let db=null,user=null,unsub=null,taken=new Set();
 })();
 
 /* ---- booking flow ---- */
-const B={style:null,barber:'b1',date:'',time:null};
+const HOME_FEE=300;
+const B={style:null,barber:'any',date:'',time:null,mode:'shop',geo:null,gs:null,addr:''};
 const todayStr=()=>new Date().toLocaleDateString('en-CA');
-function addDays(n){const d=new Date();d.setDate(d.getDate()+n);return d.toLocaleDateString('en-CA')}
-function openBooking(styleId){
- B.style=styleId||B.style||STYLES[0].id;B.time=null;B.date=B.date||todayStr();B.barber=B.barber||'b1';
- $('#bookBody').innerHTML=`<h3>Book appointment</h3><p class="note">Choose your style, barber and time.</p>
- <form class="f two" id="bf">
-  <label class="full">Hairstyle<select id="b_s">${STYLES.map(s=>`<option value="${s.id}" ${s.id===B.style?'selected':''}>${esc(s.name)} · ${money(s.price)} · ${s.mins} min</option>`).join('')}</select></label>
-  <label>Barber<select id="b_b">${BARBERS.map(b=>`<option value="${b.id}" ${b.id===B.barber?'selected':''}>${esc(b.name)}</option>`).join('')}</select></label>
-  <label>Date<input id="b_d" type="date" min="${todayStr()}" max="${addDays(30)}" value="${B.date}"></label>
-  <div class="full"><b style="font-size:13px">Time</b><div class="times" id="times" style="margin-top:6px"></div><p class="note" id="tnote"></p></div>
-  <label>Your name<input id="b_n" required autocomplete="name"></label>
-  <label>Phone<input id="b_p" type="tel" required autocomplete="tel" placeholder="0712 345 678"></label>
-  <label class="full">Notes (optional)<input id="b_t" placeholder="e.g. bring a photo of the style you want"></label>
-  <button class="btn full" id="b_go" style="height:46px">Confirm booking</button>
+const slotId=(d,b,h)=>`${d}_${b}_${h}`;
+function nextDays(){const o=[];for(let i=0;o.length<9&&i<16;i++){const d=new Date();d.setDate(d.getDate()+i);if(d.getDay()===0)continue;if(i===0&&d.getHours()>=TIMES[TIMES.length-1])continue;o.push({s:d.toLocaleDateString('en-CA'),i,d})}return o}
+const dayLab=x=>x.i===0?'Today':x.i===1?'Tmrw':x.d.toLocaleDateString('en-US',{weekday:'short'});
+const saved=()=>{try{return JSON.parse(localStorage.getItem('kb_contact')||'{}')}catch(e){return{}}};
+const ids=()=>B.barber==='any'?BARBERS.map(b=>b.id):[B.barber];
+const free=h=>{if(B.date===todayStr()&&h<=new Date().getHours())return false;return ids().some(b=>!taken.has(slotId(B.date,b,h)))};
+const nice=d=>new Date(d+'T00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+
+function openBooking(styleId,home){
+ B.style=styleId||B.style||STYLES[0].id;B.date=nextDays()[0].s;B.time=null;B.mode=home?'home':'shop';B.geo=null;B.gs=null;B.addr='';
+ const c=saved();
+ $('#bookBody').innerHTML=`<h3>Book your cut</h3><p class="note">Four taps and you’re done.</p>
+ <form class="f" id="bf">
+  <div><b class="lb">1 · Style</b><select id="b_s">${STYLES.map(s=>`<option value="${s.id}" ${s.id===B.style?'selected':''}>${esc(s.name)} · ${money(s.price)}</option>`).join('')}</select></div>
+  <div><b class="lb">2 · Where</b><div class="seg" id="seg"></div><div id="homeBox"></div></div>
+  <div><b class="lb">3 · Day</b><div class="days" id="days"></div></div>
+  <div><b class="lb">4 · Time</b><div class="times" id="times"></div><p class="note" id="tnote"></p></div>
+  <div><b class="lb">Barber</b><select id="b_b"><option value="any">Any available barber</option>${BARBERS.map(b=>`<option value="${b.id}">${esc(b.name)}</option>`).join('')}</select></div>
+  <div class="two2"><label>Your name<input id="b_n" required autocomplete="name" value="${esc(c.name||'')}"></label><label>Phone<input id="b_p" type="tel" required autocomplete="tel" placeholder="0712 345 678" value="${esc(c.phone||'')}"></label></div>
+  <div class="sum" id="sum"></div>
+  <button class="btn" id="b_go" style="height:48px;font-size:16px">Confirm booking</button>
  </form>${db?'':'<div class="info">Online booking is not available right now. Please visit the shop to book.</div>'}`;
  $('#bookOv').classList.add('show');
- $('#b_s').onchange=e=>B.style=e.target.value;
- $('#b_b').onchange=e=>{B.barber=e.target.value;B.time=null;watch()};
- $('#b_d').onchange=e=>{B.date=e.target.value;B.time=null;watch()};
+ $('#b_s').onchange=e=>{B.style=e.target.value;drawSum()};
+ $('#b_b').onchange=e=>{B.barber=e.target.value;B.time=null;drawTimes()};
  $('#bf').onsubmit=submit;
- watch();
+ $('#bf').addEventListener('input',e=>{if(e.target.id==='b_l')B.addr=e.target.value});
+ $('#bf').addEventListener('click',e=>{
+  const t=e.target.closest('[data-day],[data-mode],[data-geo]');if(!t)return;
+  if(t.dataset.day){B.date=t.dataset.day;B.time=null;drawDays();watch()}
+  else if(t.dataset.mode){B.mode=t.dataset.mode;drawSeg();if(B.mode==='home'&&!B.gs)getGeo();else drawHome();drawSum()}
+  else if(t.dataset.geo){const g=t.dataset.geo;if(g==='retry')getGeo();else{B.gs=g;drawHome()}}
+ });
+ drawSeg();drawDays();watch();
+ if(B.mode==='home')getGeo();else drawHome();
+}
+function drawSeg(){$('#seg').innerHTML=`<button type="button" data-mode="shop" class="${B.mode==='shop'?'on':''}">At the shop</button><button type="button" data-mode="home" class="${B.mode==='home'?'on':''}">Home service<br><small>+${money(HOME_FEE)}</small></button>`}
+function drawDays(){$('#days').innerHTML=nextDays().map(x=>`<button type="button" data-day="${x.s}" class="${x.s===B.date?'on':''}"><span>${dayLab(x)}</span><b>${x.d.getDate()}</b></button>`).join('')}
+function getGeo(){
+ B.gs='ask';drawHome();
+ if(!navigator.geolocation){B.gs='fail';drawHome();return}
+ navigator.geolocation.getCurrentPosition(p=>{B.geo={lat:+p.coords.latitude.toFixed(5),lng:+p.coords.longitude.toFixed(5),acc:Math.round(p.coords.accuracy)};B.gs='found';drawHome()},()=>{B.gs='fail';drawHome()},{enableHighAccuracy:true,timeout:12000,maximumAge:60000});
+}
+function drawHome(){
+ const box=$('#homeBox');if(!box)return;
+ if(B.mode!=='home'){box.innerHTML='';return}
+ const g=B.geo,map=g?`https://www.google.com/maps?q=${g.lat},${g.lng}`:'';
+ let h='';
+ if(B.gs==='ask')h='<div class="loc"><span><i class="spin"></i>Finding your location…</span></div>';
+ else if(B.gs==='found')h=`<div class="loc"><b>📍 Is this where you are?</b><span class="note">We found you (accurate to about ${g.acc} m). <a class="lnk" href="${map}" target="_blank" rel="noopener">Check on map</a></span><div class="yn"><button type="button" class="btn" data-geo="yes">Yes, that’s me</button><button type="button" class="btn ghost" data-geo="no">No, other address</button></div></div>`;
+ else if(B.gs==='yes')h=`<div class="loc"><b>✓ Location confirmed</b><span class="note"><a class="lnk" href="${map}" target="_blank" rel="noopener">View on map</a> · <button type="button" class="lnk" data-geo="no">Change</button></span></div><label class="fl">House no. or landmark (optional)<input id="b_l" placeholder="e.g. Gate B, 3rd floor" value="${esc(B.addr)}"></label>`;
+ else h=`<div class="loc"><span class="note">${B.gs==='fail'?'We couldn’t get your location. ':''}Type where we should come.</span><button type="button" class="lnk" data-geo="retry" style="justify-self:start">Use my location instead</button></div><label class="fl">Your address<input id="b_l" placeholder="Estate, street, house no." value="${esc(B.addr)}"></label>`;
+ box.innerHTML=h;
 }
 function watch(){
  if(unsub){try{unsub()}catch(e){}unsub=null}
  taken=new Set();drawTimes();
  if(!db||!B.date)return;
- const timer=setTimeout(()=>{$('#tnote').textContent='Could not load availability. Try again.'},10000);
- try{unsub=db.collection('slots').where('date','==',B.date).onSnapshot(s=>{clearTimeout(timer);taken=new Set(s.docs.map(d=>d.id));drawTimes()},()=>{clearTimeout(timer);$('#tnote').textContent='Could not load availability.'})}catch(e){clearTimeout(timer)}
+ const timer=setTimeout(()=>{const n=$('#tnote');if(n)n.textContent='Could not load availability. Try again.'},10000);
+ try{unsub=db.collection('slots').where('date','==',B.date).onSnapshot(s=>{clearTimeout(timer);taken=new Set(s.docs.map(d=>d.id));drawTimes()},()=>{clearTimeout(timer);const n=$('#tnote');if(n)n.textContent='Could not load availability.'})}catch(e){clearTimeout(timer)}
 }
-const slotId=(d,b,h)=>`${d}_${b}_${h}`;
 function drawTimes(){
  const box=$('#times');if(!box)return;
- const d=new Date(B.date+'T00:00');
- if(d.getDay()===0){box.innerHTML='';$('#tnote').textContent='Closed on Sundays. Please pick another date.';return}
  $('#tnote').textContent='';
- const now=new Date(),isToday=B.date===todayStr();
- box.innerHTML=TIMES.map(h=>{
-  const past=isToday&&h<=now.getHours(),tk=taken.has(slotId(B.date,B.barber,h));
-  return `<button type="button" data-t="${h}" class="${B.time===h?'on':''}" ${past||tk?'disabled':''}>${lab(h)}</button>`;
- }).join('');
+ if(B.time==null||!free(B.time)){const f=TIMES.find(free);B.time=f==null?null:f}
+ box.innerHTML=TIMES.map(h=>`<button type="button" data-t="${h}" class="${B.time===h?'on':''}" ${free(h)?'':'disabled'}>${lab(h)}</button>`).join('');
+ if(B.time==null)$('#tnote').textContent='Fully booked this day. Try another day.';
+ drawSum();
+}
+function drawSum(){
+ const s=$('#sum');if(!s)return;
+ const st=STYLES.find(x=>x.id===B.style),p=st.price+(B.mode==='home'?HOME_FEE:0);
+ s.innerHTML=B.time==null?'':`<b>${esc(st.name)}</b> · ${nice(B.date)} · ${lab(B.time)}<br>${B.mode==='home'?'Home service':'At the shop'} · <b>${money(p)}</b>`;
 }
 async function submit(e){
  e.preventDefault();
  if(!db||!user)return toast('Booking is unavailable right now');
- if(!B.time)return toast('Pick a time first');
+ if(B.time==null)return toast('Pick a time first');
  const name=$('#b_n').value.trim(),phone=$('#b_p').value.trim();
  if(phone.replace(/\D/g,'').length<9)return toast('Enter a valid phone number');
+ const home=B.mode==='home',li=$('#b_l'),addr=home&&li?li.value.trim():'';
+ if(home){if(B.gs==='found'||B.gs==='ask')return toast('Please confirm your location');if(B.gs!=='yes'&&addr.length<4)return toast('Enter your address')}
  const btn=$('#b_go');btn.disabled=true;btn.textContent='Booking...';
- const id=slotId(B.date,B.barber,B.time),st=STYLES.find(s=>s.id===B.style),br=BARBERS.find(b=>b.id===B.barber);
+ const st=STYLES.find(s=>s.id===B.style),reset=()=>{btn.disabled=false;btn.textContent='Confirm booking'};
  try{
-  const ex=await db.doc('slots/'+id).get();
-  if(ex.exists){toast('Sorry, that time was just taken');btn.disabled=false;btn.textContent='Confirm booking';return}
-  await db.doc('slots/'+id).set({date:B.date,barber:B.barber,time:B.time});
+  let br=null;
+  for(const id of ids()){
+   const sid=slotId(B.date,id,B.time),ex=await db.doc('slots/'+sid).get();
+   if(!ex.exists){await db.doc('slots/'+sid).set({date:B.date,barber:id,time:B.time});br=BARBERS.find(b=>b.id===id);break}
+  }
+  if(!br){toast('Sorry, that time was just taken');reset();return}
+  const price=st.price+(home?HOME_FEE:0),ll=home&&B.gs==='yes'&&B.geo;
   const uid=await user.id(),ref=db.doc('bookings/'+uid),cur=await ref.get(),items=(cur.exists&&cur.data().items)||[];
-  items.push({slot:id,date:B.date,time:B.time,barber:br.name,style:st.name,price:st.price,name,phone,notes:$('#b_t').value.trim(),created:new Date().toISOString()});
+  items.push({slot:slotId(B.date,br.id,B.time),date:B.date,time:B.time,barber:br.name,style:st.name,price,name,phone,home,addr,lat:ll?B.geo.lat:null,lng:ll?B.geo.lng:null,created:new Date().toISOString()});
   await ref.set({items});
+  try{localStorage.setItem('kb_contact',JSON.stringify({name,phone}))}catch(_){}
   if(unsub){unsub();unsub=null}
-  $('#bookBody').innerHTML=`<div class="ok"><div class="tick">&#10003;</div><h3>You’re booked!</h3><p style="margin-top:8px"><b>${esc(st.name)}</b> with <b>${esc(br.name)}</b><br>${new Date(B.date+'T00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})} at ${lab(B.time)}</p><p class="note">${money(st.price)} · pay at the shop. Please arrive 5 minutes early.</p><div class="cta"><button class="btn" data-close>Done</button></div></div>`;
-  B.time=null;
- }catch(err){toast(err&&err.message?err.message:'Could not book. Please try again.');btn.disabled=false;btn.textContent='Confirm booking'}
+  $('#bookBody').innerHTML=`<div class="ok"><div class="tick">&#10003;</div><h3>You’re booked!</h3><p style="margin-top:8px"><b>${esc(st.name)}</b> with <b>${esc(br.name)}</b><br>${nice(B.date)} at ${lab(B.time)}</p><p class="note">${home?'Your barber will come to you. ':'See you at the shop. '}${money(price)} · pay in person.</p><div class="cta"><button class="btn" data-close>Done</button></div></div>`;
+ }catch(err){toast(err&&err.message?err.message:'Could not book. Please try again.');reset()}
 }
 
 /* ---- barber dashboard ---- */
 let dunsub=[],dRows=[],dSlots=new Set();
 function drawDash(){
  const box=$('#dashList'),rows=dRows.filter(r=>r.date>=todayStr()&&dSlots.has(r.slot)).sort((a,b)=>a.date.localeCompare(b.date)||a.time-b.time);
- box.innerHTML=rows.map(r=>`<div class="brow"><div class="tx"><b>${esc(r.name)} · ${esc(r.style)}</b><span>${new Date(r.date+'T00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})} · ${lab(r.time)} · ${esc(r.barber)} · <a href="tel:${esc(r.phone)}">${esc(r.phone)}</a>${r.notes?' · '+esc(r.notes):''}</span></div><button class="del" data-cancel="${esc(r.slot)}">Cancel</button></div>`).join('')||'<p class="note" style="margin-top:14px">No upcoming bookings yet.</p>';
+ box.innerHTML=rows.map(r=>`<div class="brow"><div class="tx"><b>${esc(r.name)} · ${esc(r.style)}</b><span>${new Date(r.date+'T00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})} · ${lab(r.time)} · ${esc(r.barber)} · <a href="tel:${esc(r.phone)}">${esc(r.phone)}</a>${r.home?' · <b>HOME</b>'+(r.addr?': '+esc(r.addr):'')+(r.lat!=null?` · <a href="https://www.google.com/maps?q=${r.lat},${r.lng}" target="_blank" rel="noopener">Map</a>`:''):''}</span></div><button class="del" data-cancel="${esc(r.slot)}">Cancel</button></div>`).join('')||'<p class="note" style="margin-top:14px">No upcoming bookings yet.</p>';
 }
 function stopDash(){dunsub.forEach(f=>{try{f()}catch(e){}});dunsub=[]}
 function openDash(){
@@ -313,7 +400,7 @@ function openDash(){
 /* ---- events ---- */
 document.addEventListener('click',async e=>{
  const t=e.target.closest('[data-book],[data-close],[data-cat],[data-t],[data-cancel]');if(!t)return;
- if(t.hasAttribute('data-book')){openBooking(t.dataset.book||null);return}
+ if(t.hasAttribute('data-book')){openBooking(t.dataset.book||null,t.hasAttribute('data-home'));return}
  if(t.hasAttribute('data-close')){$$('.ov').forEach(o=>o.classList.remove('show'));if(unsub){unsub();unsub=null}stopDash();return}
  if(t.dataset.cat){F.cat=t.dataset.cat;drawStyles();return}
  if(t.dataset.t){B.time=+t.dataset.t;drawTimes();return}
