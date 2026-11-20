@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KBarder — Cuts, fades & grooming</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--red:#a8801f;--red-d:#7a5a12;--red-l:#d4af37;--ink:#1a1710;--mut:#7a7466;--line:#e6dcc3;--bg:#faf6ec;--card:#fffdf7;--soft:#f6efdc;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+
+:root[data-theme="dark"]{--red:#d4af37;--red-d:#9c7a1c;--red-l:#f0d684;--ink:#f3ead7;--mut:#a39a85;--line:#2e2a20;--bg:#0a0a0b;--card:#141413;--soft:#1d1a12;color-scheme:dark}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 80px);scroll-behavior:smooth}
+*{box-sizing:border-box;margin:0}
+body{font-family:Manrope,system-ui,sans-serif;color:var(--ink);background:var(--bg);font-size:14px;line-height:1.45;overflow-x:hidden}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+header{background:var(--card);position:sticky;top:env(safe-area-inset-top,0px);z-index:30;border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--card);z-index:31}
+.hrow{display:flex;align-items:center;gap:20px;height:68px}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:26px;letter-spacing:-.5px;color:var(--red)}
+.logo svg{width:38px;height:38px}
+nav{display:flex;gap:26px;font-weight:600;margin-left:20px}
+nav a:hover{color:var(--red)}
+.hr{margin-left:auto;display:flex;align-items:center;gap:12px}
+.btn{background:linear-gradient(135deg,var(--red-l),var(--red));color:#1a1408;font-weight:700;padding:0 24px;border-radius:30px;height:42px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:filter .15s;white-space:nowrap}
+.btn:hover{filter:brightness(.92)}.btn:disabled{opacity:.6;cursor:not-allowed}
+.btn.ghost{background:none;border:1.5px solid var(--red);color:var(--red)}
+.ibtn{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line)}
+.ibtn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.sun{display:none}[data-theme=dark] .sun{display:block}[data-theme=dark] .moon{display:none}
+.hero{position:relative;overflow:hidden;padding:56px 0 64px;text-align:center;background:radial-gradient(900px 400px at 85% 0,#f3e3b3,transparent),linear-gradient(#fbf3dc,var(--bg))}
+[data-theme=dark] .hero{background:radial-gradient(900px 400px at 85% 0,rgba(212,175,55,.22),transparent),linear-gradient(#14110a,var(--bg))}
+.hero .pole{position:absolute;width:520px;height:520px;right:-130px;top:-130px;opacity:.07;color:var(--red)}
+.hero h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(34px,6vw,60px);line-height:1.04;letter-spacing:-1px;position:relative}
+.hero h1 span{color:var(--red)}
+.hero p{max-width:560px;margin:14px auto 0;color:var(--mut);font-size:16px;position:relative}
+.cta{display:flex;gap:12px;justify-content:center;margin-top:26px;flex-wrap:wrap;position:relative}
+.cta .btn{height:48px;padding:0 32px;font-size:16px}
+.facts{display:flex;gap:28px;justify-content:center;margin-top:30px;font-weight:700;flex-wrap:wrap;position:relative}
+.facts span{color:var(--mut);font-weight:600;display:block;font-size:12px}
+.sec{display:flex;align-items:baseline;gap:12px;margin:38px 0 14px;flex-wrap:wrap}
+.sec h2{font-family:'Bricolage Grotesque',sans-serif;font-size:28px;font-weight:800}
+.sec span{color:var(--mut)}
+.fbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+.fbar button{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:6px 16px;font-weight:600}
+.fbar button:hover,.fbar button.on{border-color:var(--red);color:var(--red)}
+.fbar input{margin-left:auto;border:1.5px solid var(--line);background:var(--card);border-radius:30px;padding:8px 16px;min-width:200px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.card{background:var(--card);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s}
+.card:hover{box-shadow:0 10px 28px rgba(0,0,0,.14);transform:translateY(-2px)}
+.card .ph{aspect-ratio:1;display:grid;place-items:center;position:relative}
+.card .ph svg{width:82%;height:82%}
+.card .ph em{position:absolute;left:10px;top:10px;background:var(--red);color:#1a1408;font-style:normal;font-size:11px;font-weight:700;padding:2px 10px;border-radius:10px}
+.card .bd{padding:12px 14px 14px;display:flex;flex-direction:column;gap:4px;flex:1}
+.card h4{font-size:16px;font-weight:800}
+.card .meta{color:var(--mut);font-size:13px}
+.price{font-size:20px;font-weight:800;margin-top:auto;padding-top:4px}
+.card .btn{height:38px;margin-top:8px;padding:0 12px}
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.person{background:var(--card);border-radius:16px;padding:22px;text-align:center}
+.person .av{width:76px;height:76px;border-radius:50%;margin:0 auto 10px;display:grid;place-items:center;color:#1a1408;font-family:'Bricolage Grotesque',sans-serif;font-size:30px;font-weight:800;background:linear-gradient(135deg,var(--red-l),var(--red-d))}
+.person b{font-size:17px;display:block}.person span{color:var(--mut)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.steps div{background:var(--card);border-radius:16px;padding:20px}
+.steps b{display:block;font-size:16px;margin-bottom:4px}
+.steps i{font-style:normal;display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--red);color:#1a1408;font-weight:800;margin-bottom:8px}
+.hours{background:var(--card);border-radius:16px;padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.hours table{width:100%;border-collapse:collapse}.hours td{padding:6px 0;border-bottom:1px solid var(--line)}.hours td:last-child{text-align:right;font-weight:700}
+footer{background:#17171a;color:#bbb;margin-top:50px;padding:34px 0}
+footer .wrap{display:flex;gap:20px;justify-content:space-between;flex-wrap:wrap;align-items:center}
+footer .logo{color:#fff}
+.ov{position:fixed;inset:0;background:rgba(10,10,14,.6);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.ov.show{display:flex}
+.md{background:var(--card);border-radius:20px;width:100%;max-width:520px;padding:26px;max-height:92vh;overflow:auto;position:relative}
+.md.wide{max-width:760px}
+.md h3{font-family:'Bricolage Grotesque',sans-serif;font-size:26px}
+.x{position:absolute;right:16px;top:12px;font-size:28px;color:var(--mut);line-height:1}
+.note{color:var(--mut);font-size:13px;margin-top:4px}
+.f{display:grid;gap:12px;margin-top:14px}
+.f.two{grid-template-columns:1fr 1fr}.f .full{grid-column:1/-1}
+.f label{font-weight:700;font-size:13px;display:grid;gap:5px}
+.f input,.f select,.f textarea{border:1.5px solid var(--line);background:var(--card);border-radius:10px;padding:10px 12px;font-weight:500;width:100%}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--red);outline:0}
+.times{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.times button{border:1.5px solid var(--line);border-radius:10px;padding:9px 4px;font-weight:700}
+.times button:hover:not(:disabled){border-color:var(--red);color:var(--red)}
+.times button.on{background:var(--red);border-color:var(--red);color:#1a1408}
+.times button:disabled{opacity:.4;text-decoration:line-through;cursor:not-allowed}
+.info{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;margin-top:12px}
+[data-theme=dark] .info{border-color:var(--line)}
+.ok{text-align:center;padding:10px 0}.ok .tick{width:64px;height:64px;border-radius:50%;background:var(--red);color:#1a1408;display:grid;place-items:center;margin:0 auto 12px;font-size:32px}
+.brow{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.brow .tx{flex:1}.brow b{display:block}.brow span{color:var(--mut);font-size:13px}
+.del{color:var(--red);font-weight:700;padding:8px}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(120px);background:var(--ink);color:var(--bg);padding:12px 22px;border-radius:30px;font-weight:600;z-index:90;transition:transform .25s;max-width:90%;text-align:center}
+.toast.show{transform:translateX(-50%)}
+.empty{grid-column:1/-1;background:var(--card);border-radius:14px;padding:44px;text-align:center;color:var(--mut)}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}nav{display:none}.team,.steps{grid-template-columns:1fr}.hours{grid-template-columns:1fr}}
+@media(max-width:480px){.wrap{padding:0 14px}.grid{gap:10px}.card h4{font-size:14px}.price{font-size:17px}.f.two{grid-template-columns:1fr}.times{grid-template-columns:repeat(3,1fr)}.hr .btn{padding:0 16px}.fbar input{width:100%;margin-left:0}}
+h1,h2,h3,.logo,.person .av{font-family:'Playfair Display',Georgia,serif}
+.logo{letter-spacing:2px;text-transform:uppercase;font-size:22px}
+.hero h1{letter-spacing:-.5px}
+.card .ph{background:linear-gradient(145deg,#f1e3b6,#c9a24b)!important}
+.card,.person,.steps div,.hours{border:1px solid var(--line)}
+.card:hover{border-color:var(--red)}
+footer{background:#050505;border-top:1px solid var(--red)}
+.facts div{color:var(--red)}
+</style>
+</head>
+<body>
+<header><div class="wrap"><div class="hrow">
+ <a class="logo" href="#top" aria-label="KBarder home"><svg viewBox="0 0 100 100"><rect width="100" height="100" rx="26" fill="#0a0a0b" stroke="#d4af37" stroke-width="4"/><g fill="none" stroke="#d4af37" stroke-width="7" stroke-linecap="round"><circle cx="34" cy="72" r="10"/><circle cx="66" cy="72" r="10"/><path d="M40 63L68 20M60 63L32 20"/></g></svg>KBarder</a>
+ <nav><a href="#styles">Styles</a><a href="#team">Barbers</a><a href="#how">How it works</a><a href="#hours">Hours</a></nav>
+ <div class="hr">
+  <button class="ibtn" id="themeBtn" aria-label="Toggle dark mode"><svg class="moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z"/></svg><svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+  <button class="btn ghost" id="dashBtn" hidden>Bookings</button>
+  <button class="btn" data-book>Book now</button>
+ </div>
+</div></div></header>
+
+<section class="hero" id="top">
+ <svg class="pole" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="34" cy="72" r="14"/><circle cx="66" cy="72" r="14"/><path d="M42 60L72 10M58 60L28 10"/></svg>
+ <div class="wrap">
+  <h1>Fresh cuts. <span>Sharp lines.</span><br>Booked in seconds.</h1>
+  <p>Browse our hairstyles, pick your barber and choose a time that suits you. No calls, no waiting in line.</p>
+  <div class="cta"><button class="btn" data-book>Book appointment</button><a class="btn ghost" href="#styles">See hairstyles</a></div>
+  <div class="facts"><div>Mon–Sat<span>8:00 AM – 8:00 PM</span></div><div>3 barbers<span>Walk-ins welcome</span></div><div>From Ksh 200<span>Kids cuts</span></div></div>
+ </div>
+</section>
+
+<main class="wrap">
+ <div class="sec" id="styles"><h2>Hairstyles</h2><span id="sc"></span></div>
+ <div class="fbar" id="fbar"></div>
+ <div class="grid" id="grid"></div>
+
+ <div class="sec" id="team"><h2>Meet the barbers</h2></div>
+ <div class="team" id="teamBox"></div>
+
+ <div class="sec" id="how"><h2>How booking works</h2></div>
+ <div class="steps">
+  <div><i>1</i><b>Pick a style</b>Browse the gallery and tap Book on the cut you like.</div>
+  <div><i>2</i><b>Choose barber and time</b>See open slots live. Taken times are greyed out.</div>
+  <div><i>3</i><b>Show up and relax</b>Your slot is held for you. Arrive 5 minutes early.</div>
+ </div>
+
+ <div class="sec" id="hours"><h2>Hours &amp; contact</h2></div>
+ <div class="hours">
+  <table><tr><td>Monday – Friday</td><td>8:00 AM – 8:00 PM</td></tr><tr><td>Saturday</td><td>8:00 AM – 8:00 PM</td></tr><tr><td>Sunday</td><td>Closed</td></tr></table>
+  <div><b>Find us</b><p class="note" style="font-size:14px">Add your shop address and phone number here.</p><div class="cta" style="justify-content:flex-start"><button class="btn" data-book>Book appointment</button></div></div>
+ </div>
+</main>
+
+<footer><div class="wrap"><div class="logo">KBarder</div><div>&copy; <span id="yr"></span> KBarder. Look sharp, feel sharp.</div></div></footer>
+
+<div class="ov" id="bookOv"><div class="md">
+ <button class="x" data-close aria-label="Close">&times;</button>
+ <div id="bookBody"></div>
+</div></div>
+
+<div class="ov" id="dashOv"><div class="md wide">
+ <button class="x" data-close aria-label="Close">&times;</button>
+ <h3>Bookings</h3><p class="note">Upcoming appointments. Cancel a booking to free its time slot.</p>
+ <div id="dashList"></div>
+</div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const money=n=>'Ksh '+Number(n).toLocaleString('en-US');
+let tt;const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2800)};
+
+/* ---- edit these: barbers and hairstyles ---- */
+const BARBERS=[{id:'b1',name:'Kevin',role:'Master barber · fades & line-ups'},{id:'b2',name:'Brian',role:'Natural hair · twists & locs'},{id:'b3',name:'Faith',role:'Kids cuts · beard grooming'}];
+const STYLES=[
+ {id:'s1',name:'Low Fade',cat:'Fades',price:400,mins:30,hair:'fade',bg:'#ffe3e3',desc:'Clean, subtle fade that blends into short hair on top.'},
+ {id:'s2',name:'Taper Fade',cat:'Fades',price:450,mins:40,hair:'fade',bg:'#e8f1ff',desc:'Classic taper around the ears and neckline.'},
+ {id:'s3',name:'Skin Fade',cat:'Fades',price:500,mins:45,hair:'skin',bg:'#fff3d6',desc:'Down to the skin with a sharp finish.'},
+ {id:'s4',name:'Buzz Cut',cat:'Fades',price:300,mins:20,hair:'buzz',bg:'#e6f6ec',desc:'Low maintenance, even all over.'},
+ {id:'s5',name:'Afro Shape-up',cat:'Natural',price:450,mins:40,hair:'afro',bg:'#f1e6ff',desc:'Rounded afro shaped and edged for a fresh look.'},
+ {id:'s6',name:'Twists',cat:'Natural',price:1200,mins:90,hair:'twist',bg:'#ffe9d6',desc:'Neat twists, ready to wear.'},
+ {id:'s7',name:'Locs Retwist',cat:'Natural',price:1000,mins:75,hair:'locs',bg:'#e3f4f4',desc:'Retwist and tidy for healthy locs.'},
+ {id:'s8',name:'Beard Trim',cat:'Beard',price:250,mins:20,hair:'beard',bg:'#ffe3e3',desc:'Shaped, lined and softened with hot towel.'},
+ {id:'s9',name:'Cut + Beard',cat:'Beard',price:600,mins:60,hair:'beard',bg:'#e8f1ff',desc:'Our best seller: fade plus full beard grooming.'},
+ {id:'s10',name:'Kids Cut',cat:'Kids',price:200,mins:25,hair:'kid',bg:'#fff3d6',desc:'Patient, friendly cuts for ages 3–12.'},
+ {id:'s11',name:'Kids Fade',cat:'Kids',price:300,mins:30,hair:'kid',bg:'#e6f6ec',desc:'A tidy fade for the little champ.'},
+ {id:'s12',name:'Line-up',cat:'Fades',price:200,mins:15,hair:'buzz',bg:'#f1e6ff',desc:'Crisp edges and hairline, quick refresh.'}
+];
+const TIMES=[9,10,11,12,13,14,15,16,17,18,19];
+const lab=h=>(h>12?h-12:h)+':00 '+(h>=12?'PM':'AM');
+
+function hairSVG(t){
+ const skin='#b97a56',hair='#1d1d22',face='<ellipse cx="50" cy="52" rx="19" ry="23" fill="'+skin+'"/><path d="M26 98c2-18 12-24 24-24s22 6 24 24z" fill="#3a3a44"/><rect x="43" y="68" width="14" height="12" fill="'+skin+'"/>';
+ const cap='<path d="M30 48Q28 22 50 20Q72 22 70 48Q66 36 50 34Q34 36 30 48Z" fill="'+hair+'"/>';
+ let b='',a='';
+ if(t==='afro')b='<circle cx="50" cy="38" r="31" fill="'+hair+'"/>';
+ if(t==='fade'||t==='beard')a=cap+'<path d="M30 48Q31 40 34 38L34 52Z M70 48Q69 40 66 38L66 52Z" fill="#5a5a64" opacity=".55"/>';
+ if(t==='skin')a='<path d="M32 40Q36 22 50 22Q64 22 68 40Q60 32 50 32Q40 32 32 40Z" fill="'+hair+'"/>';
+ if(t==='buzz')a='<path d="M31 44Q32 24 50 23Q68 24 69 44Q62 34 50 34Q38 34 31 44Z" fill="'+hair+'" opacity=".7"/>';
+ if(t==='afro')a='<path d="M32 46Q36 36 50 36Q64 36 68 46Q60 40 50 40Q40 40 32 46Z" fill="'+hair+'"/>';
+ if(t==='twist')a=cap+[34,41,48,55,62].map(x=>'<circle cx="'+x+'" cy="'+(x%2?20:17)+'" r="5" fill="'+hair+'"/>').join('');
+ if(t==='locs')a=cap+[30,36,64,70].map(x=>'<path d="M'+x+' 40V'+(x<50?70:70)+'" stroke="'+hair+'" stroke-width="5" stroke-linecap="round"/>').join('');
+ if(t==='kid')a='<path d="M32 46Q33 26 50 25Q67 26 68 46Q62 38 50 37Q38 38 32 46Z" fill="'+hair+'"/>';
+ if(t==='beard')a+='<path d="M32 54Q34 78 50 78Q66 78 68 54Q62 64 50 64Q38 64 32 54Z" fill="'+hair+'"/>';
+ return '<svg viewBox="0 0 100 100" role="img" aria-label="'+t+' hairstyle">'+b+face+a+'<circle cx="43" cy="53" r="1.8" fill="#1d1d22"/><circle cx="57" cy="53" r="1.8" fill="#1d1d22"/></svg>';
+}
+
+/* ---- gallery ---- */
+const F={cat:'All',q:''};
+function drawStyles(){
+ const cats=['All',...new Set(STYLES.map(s=>s.cat))];
+ $('#fbar').innerHTML=cats.map(c=>`<button data-cat="${c}" class="${F.cat===c?'on':''}">${c}</button>`).join('')+'<input id="sq" placeholder="Search styles" aria-label="Search styles" value="'+esc(F.q)+'">';
+ const list=STYLES.filter(s=>(F.cat==='All'||s.cat===F.cat)&&(!F.q||s.name.toLowerCase().includes(F.q.toLowerCase())));
+ $('#sc').textContent=list.length+' styles';
+ $('#grid').innerHTML=list.map(s=>`<article class="card"><div class="ph" style="background:${s.bg}">${hairSVG(s.hair)}${s.id==='s9'?'<em>Popular</em>':''}</div><div class="bd"><h4>${esc(s.name)}</h4><div class="meta">${esc(s.desc)}</div><div class="meta">${s.mins} min</div><div class="price">${money(s.price)}</div><button class="btn" data-book="${s.id}">Book this style</button></div></article>`).join('')||'<div class="empty"><b>No styles found.</b><br>Try another search.</div>';
+ const si=$('#sq');if(si&&F.focus){si.focus();si.setSelectionRange(F.q.length,F.q.length)}
+}
+document.addEventListener('input',e=>{if(e.target.id==='sq'){F.q=e.target.value;F.focus=1;drawStyles();F.focus=0}});
+$('#teamBox').innerHTML=BARBERS.map(b=>`<div class="person"><div class="av">${b.name[0]}</div><b>${esc(b.name)}</b><span>${esc(b.role)}</span></div>`).join('');
+
+/* ---- shared data (bookings) ---- */
+let db=null,user=null,unsub=null,taken=new Set();
+(async()=>{
+ try{db=await claude.use('db')}catch(e){db=null}
+ try{user=await claude.use('user')}catch(e){user=null}
+ if(user&&user.canEdit&&user.canEdit())$('#dashBtn').hidden=false;
+})();
+
+/* ---- booking flow ---- */
+const B={style:null,barber:'b1',date:'',time:null};
+const todayStr=()=>new Date().toLocaleDateString('en-CA');
+function addDays(n){const d=new Date();d.setDate(d.getDate()+n);return d.toLocaleDateString('en-CA')}
+function openBooking(styleId){
+ B.style=styleId||B.style||STYLES[0].id;B.time=null;B.date=B.date||todayStr();B.barber=B.barber||'b1';
+ $('#bookBody').innerHTML=`<h3>Book appointment</h3><p class="note">Choose your style, barber and time.</p>
+ <form class="f two" id="bf">
+  <label class="full">Hairstyle<select id="b_s">${STYLES.map(s=>`<option value="${s.id}" ${s.id===B.style?'selected':''}>${esc(s.name)} · ${money(s.price)} · ${s.mins} min</option>`).join('')}</select></label>
+  <label>Barber<select id="b_b">${BARBERS.map(b=>`<option value="${b.id}" ${b.id===B.barber?'selected':''}>${esc(b.name)}</option>`).join('')}</select></label>
+  <label>Date<input id="b_d" type="date" min="${todayStr()}" max="${addDays(30)}" value="${B.date}"></label>
+  <div class="full"><b style="font-size:13px">Time</b><div class="times" id="times" style="margin-top:6px"></div><p class="note" id="tnote"></p></div>
+  <label>Your name<input id="b_n" required autocomplete="name"></label>
+  <label>Phone<input id="b_p" type="tel" required autocomplete="tel" placeholder="0712 345 678"></label>
+  <label class="full">Notes (optional)<input id="b_t" placeholder="e.g. bring a photo of the style you want"></label>
+  <button class="btn full" id="b_go" style="height:46px">Confirm booking</button>
+ </form>${db?'':'<div class="info">Online booking is not available right now. Please visit the shop to book.</div>'}`;
+ $('#bookOv').classList.add('show');
+ $('#b_s').onchange=e=>B.style=e.target.value;
+ $('#b_b').onchange=e=>{B.barber=e.target.value;B.time=null;watch()};
+ $('#b_d').onchange=e=>{B.date=e.target.value;B.time=null;watch()};
+ $('#bf').onsubmit=submit;
+ watch();
+}
+function watch(){
+ if(unsub){try{unsub()}catch(e){}unsub=null}
+ taken=new Set();drawTimes();
+ if(!db||!B.date)return;
+ const timer=setTimeout(()=>{$('#tnote').textContent='Could not load availability. Try again.'},10000);
+ try{unsub=db.collection('slots').where('date','==',B.date).onSnapshot(s=>{clearTimeout(timer);taken=new Set(s.docs.map(d=>d.id));drawTimes()},()=>{clearTimeout(timer);$('#tnote').textContent='Could not load availability.'})}catch(e){clearTimeout(timer)}
+}
+const slotId=(d,b,h)=>`${d}_${b}_${h}`;
+function drawTimes(){
+ const box=$('#times');if(!box)return;
+ const d=new Date(B.date+'T00:00');
+ if(d.getDay()===0){box.innerHTML='';$('#tnote').textContent='Closed on Sundays. Please pick another date.';return}
+ $('#tnote').textContent='';
+ const now=new Date(),isToday=B.date===todayStr();
+ box.innerHTML=TIMES.map(h=>{
+  const past=isToday&&h<=now.getHours(),tk=taken.has(slotId(B.date,B.barber,h));
+  return `<button type="button" data-t="${h}" class="${B.time===h?'on':''}" ${past||tk?'disabled':''}>${lab(h)}</button>`;
+ }).join('');
+}
+async function submit(e){
+ e.preventDefault();
+ if(!db||!user)return toast('Booking is unavailable right now');
+ if(!B.time)return toast('Pick a time first');
+ const name=$('#b_n').value.trim(),phone=$('#b_p').value.trim();
+ if(phone.replace(/\D/g,'').length<9)return toast('Enter a valid phone number');
+ const btn=$('#b_go');btn.disabled=true;btn.textContent='Booking...';
+ const id=slotId(B.date,B.barber,B.time),st=STYLES.find(s=>s.id===B.style),br=BARBERS.find(b=>b.id===B.barber);
+ try{
+  const ex=await db.doc('slots/'+id).get();
+  if(ex.exists){toast('Sorry, that time was just taken');btn.disabled=false;btn.textContent='Confirm booking';return}
+  await db.doc('slots/'+id).set({date:B.date,barber:B.barber,time:B.time});
+  const uid=await user.id(),ref=db.doc('bookings/'+uid),cur=await ref.get(),items=(cur.exists&&cur.data().items)||[];
+  items.push({slot:id,date:B.date,time:B.time,barber:br.name,style:st.name,price:st.price,name,phone,notes:$('#b_t').value.trim(),created:new Date().toISOString()});
+  await ref.set({items});
+  if(unsub){unsub();unsub=null}
+  $('#bookBody').innerHTML=`<div class="ok"><div class="tick">&#10003;</div><h3>You’re booked!</h3><p style="margin-top:8px"><b>${esc(st.name)}</b> with <b>${esc(br.name)}</b><br>${new Date(B.date+'T00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})} at ${lab(B.time)}</p><p class="note">${money(st.price)} · pay at the shop. Please arrive 5 minutes early.</p><div class="cta"><button class="btn" data-close>Done</button></div></div>`;
+  B.time=null;
+ }catch(err){toast(err&&err.message?err.message:'Could not book. Please try again.');btn.disabled=false;btn.textContent='Confirm booking'}
+}
+
+/* ---- barber dashboard ---- */
+let dunsub=[],dRows=[],dSlots=new Set();
+function drawDash(){
+ const box=$('#dashList'),rows=dRows.filter(r=>r.date>=todayStr()&&dSlots.has(r.slot)).sort((a,b)=>a.date.localeCompare(b.date)||a.time-b.time);
+ box.innerHTML=rows.map(r=>`<div class="brow"><div class="tx"><b>${esc(r.name)} · ${esc(r.style)}</b><span>${new Date(r.date+'T00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})} · ${lab(r.time)} · ${esc(r.barber)} · <a href="tel:${esc(r.phone)}">${esc(r.phone)}</a>${r.notes?' · '+esc(r.notes):''}</span></div><button class="del" data-cancel="${esc(r.slot)}">Cancel</button></div>`).join('')||'<p class="note" style="margin-top:14px">No upcoming bookings yet.</p>';
+}
+function stopDash(){dunsub.forEach(f=>{try{f()}catch(e){}});dunsub=[]}
+function openDash(){
+ $('#dashOv').classList.add('show');if(!db)return;
+ stopDash();$('#dashList').innerHTML='<p class="note">Loading...</p>';
+ const er=err=>{$('#dashList').innerHTML='<p class="note">Could not load bookings: '+esc(err.message)+'</p>'};
+ dunsub.push(db.collection('bookings').onSnapshot(s=>{dRows=s.docs.flatMap(d=>(d.data().items)||[]);drawDash()},er));
+ dunsub.push(db.collection('slots').where('date','>=',todayStr()).onSnapshot(s=>{dSlots=new Set(s.docs.map(d=>d.id));drawDash()},er));
+}
+
+/* ---- events ---- */
+document.addEventListener('click',async e=>{
+ const t=e.target.closest('[data-book],[data-close],[data-cat],[data-t],[data-cancel]');if(!t)return;
+ if(t.hasAttribute('data-book')){openBooking(t.dataset.book||null);return}
+ if(t.hasAttribute('data-close')){$$('.ov').forEach(o=>o.classList.remove('show'));if(unsub){unsub();unsub=null}stopDash();return}
+ if(t.dataset.cat){F.cat=t.dataset.cat;drawStyles();return}
+ if(t.dataset.t){B.time=+t.dataset.t;drawTimes();return}
+ if(t.dataset.cancel){
+  if(!confirm('Cancel this booking?'))return;
+  try{await db.doc('slots/'+t.dataset.cancel).delete();toast('Booking cancelled')}catch(err){toast(err.message||'Could not cancel')}
+ }
+});
+$$('.ov').forEach(o=>o.addEventListener('mousedown',e=>{if(e.target===o)document.querySelector('[data-close]').click()}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelector('[data-close]').click()});
+$('#dashBtn').onclick=openDash;
+$('#themeBtn').onclick=()=>{const c=document.documentElement.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',c==='dark'?'light':'dark')};
+$('#yr').textContent=new Date().getFullYear();
+drawStyles();
+</script>
+</body>
+</html>
